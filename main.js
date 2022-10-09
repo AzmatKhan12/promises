@@ -31,6 +31,45 @@ function creatPost(x) {
 
     });
 }
+function deletePost() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (posts.length > 0) {
+                let lastElemnt = posts.pop();
+                resolve(lastElemnt);
 
-creatPost({ title: 'post three', body: 'this is post three' }).then(getPost)
-    .catch(error => console.log(error));
+            }
+            else {
+                reject('Array is Empty now')
+            }
+
+        }, 1000)
+
+    });
+}
+
+creatPost({ title: 'post three', body: 'this is post three' })
+    .then(() => {
+        getPost();
+        deletePost().then(() => {
+            getPost();
+            deletePost().then(() => {
+                getPost();
+                deletePost().then(() => {
+                    getPost();
+                    deletePost().then(() => { })
+                        .catch((error) => {
+                            console.log('inside catch block', error)
+                        })
+                })
+                    .catch((err) => { console.log('delete post three', err) });
+            })
+                .catch((err) => { console.log('delete post two', err) });
+
+
+        })
+            .catch((err) => { console.log('delet post one', err) });
+
+    })
+    .catch(err => console.log(err));
+
