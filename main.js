@@ -73,3 +73,17 @@ creatPost({ title: 'post three', body: 'this is post three' })
     })
     .catch(err => console.log(err));
 
+
+// promise.all
+
+const promise1 = Promise.resolve('hello woreld');
+const promise2 = 10;
+const promise3 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 2000, 'goodBye')
+
+});
+
+Promise.all([promise1, promise2, promise3]).then((val) => {
+    console.log(val);
+})
+
